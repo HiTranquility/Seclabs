@@ -15,4 +15,4 @@ VSCode: https://code.visualstudio.com/
   ![image](https://github.com/user-attachments/assets/2c4703e3-a487-4bd9-8375-caab678ec573)
 - Go to .../yourpath/myprojects and do `docker run -it --privileged -v $HOME/Seclabs:/home/seed/seclabs img4lab`
   ![image](https://github.com/user-attachments/assets/fbbd6d8c-cb7e-4914-80d1-8b6ec737ced2)
-  => You have finished the initialization step! Remember to use 'cd seclabs' after to get in the files!
+  > You have finished the initialization step! Remember to use `cd seclabs` after to get in the files!
