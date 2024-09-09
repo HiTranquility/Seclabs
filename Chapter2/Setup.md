@@ -1,6 +1,8 @@
 # Download all the stuff we need
-Docker: 
-gitbash: 
-VSCode: 
+Docker: https://www.docker.com/  
+gitbash: https://git-scm.com/downloads  
+VSCode: https://code.visualstudio.com/  
 # Cloning the FILES to your own FILES
-#code git clone https://github.com/quang-ute/myprojects.git 
+*git clone https://github.com/quang-ute/myprojects.git*  
+# Starting composing the files
+
