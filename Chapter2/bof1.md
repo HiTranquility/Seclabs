@@ -12,7 +12,7 @@ At "gets(array)"; function, we see that hackers can exploit the stackframe by ad
 `gdb bof1.out`  
 ![image](https://github.com/user-attachments/assets/fd0f1874-33e5-462a-b728-5585a58f25f2)
 ## Try to see each func in machine code!
-With **vuln**: `disas vuln` 
+With **vuln**: `disas vuln`  
 ![image](https://github.com/user-attachments/assets/5cebaf7c-ea46-4f84-8ca1-5cadb035417b)  
 With **secretFunc**: `disas secretFunc`  
 ![image](https://github.com/user-attachments/assets/9309975e-fe08-4948-b08a-ff2b48181bd6)  
