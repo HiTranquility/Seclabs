@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/af9ff0e6-5c16-42ee-8d2d-c3f22ec407c2)![image](https://github.com/user-attachments/assets/fc65187f-1f98-4bf9-8c1b-fa8e5aaa1e95)![image](https://github.com/user-attachments/assets/a0d599a9-8b0b-4865-8772-f91da6b9e762)![image](https://github.com/user-attachments/assets/8eb27f21-dc1b-4e4b-a9ce-860007ce6813)# Understand InjectionCode 
+# Understand InjectionCode 
 In reality, we don't actually know how long is the stackframe is, so we need to determine how long is it by adding bytes to examine! The task is to load the shellcode into the buffer in the vulnerable program, then insert it into the return address so that the program returns and executes the command I just inserted into the buffer.
 ## Stackframe
 ![image](https://github.com/user-attachments/assets/45d28a14-09e3-448e-9ad8-5e3c82b7cd99)
@@ -16,14 +16,14 @@ In buf, we can redirect the return address to our assembly code to run our own c
 => With each x is a byte => we have 27 bytes
 ## Start attacking
 - Compile the vuln.c file `gcc vuln.c -o vuln.out -fno-stack-protector -z execstack -mpreferred-stack-boundary=2`
-![image](https://github.com/user-attachments/assets/59643489-9be9-40d2-bd46-56df9be508bd)
+![image](https://github.com/user-attachments/assets/59643489-9be9-40d2-bd46-56df9be508bd)  
 - To execute code on stack, we need to create new shell! type `sudo ln -sf /bin/zsh /bin/sh` with password: dees
 ![image](https://github.com/user-attachments/assets/46290e78-f765-4ab3-86d9-a03b63c68962)
 - Load the file to gdb to examine `gdb -q vuln.out`
 ![image](https://github.com/user-attachments/assets/71f61be6-604e-429c-8b6f-6b451ea430b7)
 - Type `disas main` to see the assembly code
-![image](https://github.com/user-attachments/assets/e48f3b4d-e61d-4431-8b0f-4d760b1ee3fb)
-=> At this stage, we will now add 2 breakpoints to see how the code we inject affect the stack!
+![image](https://github.com/user-attachments/assets/e48f3b4d-e61d-4431-8b0f-4d760b1ee3fb)  
+=> At this stage, we will now add 2 breakpoints to see how the code we inject affect the stack!  
 - Set at +6, after the stack frame is established `b *0x08048441`
   ![image](https://github.com/user-attachments/assets/a3d3478f-9972-434b-9179-7d420b293451)
 - Set at +48, before strcpy, we notice that eax has been pushed twice, meaning esp has now decreased by 8 bytes `b *0x0804846b`
@@ -46,7 +46,7 @@ In buf, we can redirect the return address to our assembly code to run our own c
 ## To disable Address Space Layout Randomization (ASLR), which is responsible for the randomization of memory addresses, you can follow these steps
 `sudo sysctl -w kernel.randomize_va_space=0` with password: **dees**  
 ## If you want to turn it on again please
-do `sudo sysctl -w kernel.randomize_va_space=2`
+do `sudo sysctl -w kernel.randomize_va_space=2`  
 - 2 means on both heap and stack
   ![image](https://github.com/user-attachments/assets/c81211de-3710-4d2b-9ca6-2fdf4c2b325f)
 - 1 means for only stack
