@@ -47,7 +47,7 @@ In buf, we can redirect the return address to our assembly code to run our own c
 `sudo sysctl -w kernel.randomize_va_space=0` with password: **dees**  
 ## If you want to turn it on again please
 do `sudo sysctl -w kernel.randomize_va_space=2`  
-- 2 means on both heap and stack
+- 2 means on both heap and stack  
   ![image](https://github.com/user-attachments/assets/c81211de-3710-4d2b-9ca6-2fdf4c2b325f)
 - 1 means for only stack
   ![image](https://github.com/user-attachments/assets/df985c95-1dca-4f8a-908f-8cc99afaa8cf)
