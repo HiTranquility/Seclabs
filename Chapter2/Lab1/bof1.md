@@ -1,6 +1,6 @@
 # Understand bof1.c 
 In this attack, we will try to replace the return address with another function's return address (redirect control) by using python!
-## stackframe
+## Stackframe
 ![image](https://github.com/user-attachments/assets/b2836a7b-fe7e-45f6-88f0-683aa1eeeaa3)
 ## Vulnerbility
 At "gets(array)"; function, we see that hackers can exploit the stackframe by adding more bytes in python in order to redirect the return address! 
