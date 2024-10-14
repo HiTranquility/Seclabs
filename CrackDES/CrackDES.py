@@ -36,8 +36,8 @@ if __name__ == "__main__":
             cipher = DES.new(key, DES.MODE_ECB)
             plaintext = cipher.decrypt(bytes.fromhex("ce126d2ddf2d1e64"))
             match = search("[A-Z]{4} [A-Z]{4}", b2a_uu(plaintext).decode())
-            # DEBUG
-            # print(f"{key.hex()} {b2a_uu(plaintext).decode()}")
+            #DEBUG
+            print(f"{key.hex()} {b2a_uu(plaintext).decode()}")
 
             if match:
                 with open("plaintext", "w") as file:
