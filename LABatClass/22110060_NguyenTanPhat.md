@@ -1,4 +1,4 @@
-
+# Lab #1, 22110060, Nguyen Tan Phat, INSE330380E_01FIE
 # Q1: Code Injection Lab
 
 In this lab, I will demonstrate the Code Injection approach to exploit a vulnerability in a C program. The objective is to copy the `/etc/passwd` file to `/tmp/pwfile` using a code injection attack. Below is a detailed step-by-step guide to achieve this.
