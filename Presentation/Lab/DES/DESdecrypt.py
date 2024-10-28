@@ -28,7 +28,7 @@ def decrypt_des(encrypted_text, key, input_format='Base64'):
     return decrypted_text.decode('utf-8')
 
 # Ví dụ sử dụng
-encrypted_text = "oVmfzWxhH88="
+encrypted_text = "Bw�;r��+��Q~��7�q��&��"
 key = "12345678"  # Khóa 8-byte cho DES
 output_format = "Base64"  # Hoặc HEX
 
