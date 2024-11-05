@@ -1,0 +1,1 @@
+Đây là một ví dụ về nội dung của file plain.txt. nó có thể chứa bất kỳ văn bản ascii nào mà bạn muốn mã hóa!
