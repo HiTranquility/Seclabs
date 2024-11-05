@@ -80,6 +80,9 @@ Create a file named string1.txt with a string, e.g., "abcdefghij".
 Create string2.txt:  
 Create a file named string2.txt with a one-bit difference from string1.txt, e.g., "abcdeghij".
 
+![image](https://github.com/user-attachments/assets/7145691f-f4dd-42a3-be50-ae0e1164c2b4)
+
+
 ### Hash the Strings
 Hash both files using OpenSSL:
 
