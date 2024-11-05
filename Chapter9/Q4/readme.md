@@ -35,7 +35,7 @@ openssl dgst -md5 file1 file2
 
 This command will show you the MD5 hash for both files, confirming if they are the same, which indicates a collision.
 
-4. Calculate SHA-256 Hashes
+## 4. Calculate SHA-256 Hashes
 
 Finally, calculate the SHA-256 hashes of the two binary files:
 
