@@ -34,7 +34,7 @@ Using SHA256:
 openssl dgst -sha256 filename.txt
 ```
 Result:
-![alt text](image.png)
+![image](https://github.com/user-attachments/assets/010a4856-b6aa-4a7d-aeda-5e1df7eea075)
 
 ### Task 2: The Randomness of a Hash
 To understand the properties of hash functions, we would like to do the following exercise for MD5 and SHA256:
