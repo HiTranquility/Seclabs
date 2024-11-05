@@ -4,7 +4,9 @@
 This guide walks through the process of converting a plaintext file into an encrypted file using a monoalphabetic substitution cipher.
 
 ## Step 1: Convert All Text to Lowercase
-The goal here is to ensure that the text is in lowercase so that encryption is consistent.
+The goal here is to ensure that the text is in lowercase so that encryption is consistent.  
+But first! Create your plain.txt with this line:
+![image](https://github.com/user-attachments/assets/293acd3d-db8d-4552-9ca3-91c6b58f9823)
 
 Run this command in the terminal:
 
