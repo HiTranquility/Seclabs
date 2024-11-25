@@ -82,8 +82,6 @@ scp file_bundle.tar HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
 
 ![image](https://github.com/user-attachments/assets/678cbb32-0529-4b00-8129-793645aa3251)
 
-![image](https://github.com/user-attachments/assets/33a773c1-3d41-4873-85a0-7ec7d2ca41cc)
-
 Some issues that you need to solve! If you see this message below: 
 ![image](https://github.com/user-attachments/assets/36fd6c31-23a9-453f-b34d-09c708e77f50)  
 This happens because your Virtual Machine doesn't have SSH downloaded yet!, so we will resolve this by download this back, please follow these followung steps for more:
@@ -142,10 +140,17 @@ tar -xvf file_bundle.tar
 This will produce:
 - `file.txt`: The plaintext file.
 - `file.sig`: The file's signature.
+![image](https://github.com/user-attachments/assets/5c46dd36-3fc2-4a58-9520-0cfde7189189)
 
 ---
 
 ### **Step 2.2: Verify the File**
+First, transfer the file `public.key` by using the same command that is used for file_bundle.tar! E.g:
+```bash
+scp public.key HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
+```
+![image](https://github.com/user-attachments/assets/5811bdfb-f1d5-4fb6-a5e1-660435b7106c)
+
 Use the sender’s public key to verify the authenticity and integrity of the file:
 
 ```bash
@@ -157,6 +162,8 @@ openssl dgst -sha256 -verify public.key -signature file.sig file.txt
     ```
     Verified OK
     ```
+    ![image](https://github.com/user-attachments/assets/5e184491-02f8-4b8d-bf5e-f00fc67d438c)
+
   - If verification fails: An error message indicating tampering or mismatch.
 
 ---
