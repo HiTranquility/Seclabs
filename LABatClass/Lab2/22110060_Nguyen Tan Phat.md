@@ -372,3 +372,10 @@ After applying the rules, test from VM2:
   Try accessing the web server:
   ```bash
   curl http://<VM1_IP>
+  ```
+- SSH (port 22):
+  Try connecting to SSH:
+  ```bash
+  ssh <username>@<VM1_IP>
+  ```
+  Expected Result: The connection should fail.
