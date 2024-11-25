@@ -379,3 +379,35 @@ After applying the rules, test from VM2:
   ssh <username>@<VM1_IP>
   ```
   Expected Result: The connection should fail.
+
+### Unblocking
+To unblock traffic, remove the specific rule using iptables:
+
+### Remove HTTP block:
+  ```bash
+  sudo iptables -D INPUT -p tcp --dport 80 -s <VM2_IP> -j DROP
+  ```
+### Remove ICMP block:
+  ```bash
+  sudo iptables -D INPUT -p icmp -s <VM2_IP> -j DROP
+  ```
+### Remove SSH block:
+  ```bash
+  sudo iptables -D INPUT -p tcp --dport 22 -s <VM2_IP> -j DROP
+  ```
+### Testing:
+Test the services again from VM2 to ensure connectivity is restored.
+
+---
+
+## Step 5: Save and Persist Firewall Rules
+Making the iptables rules persist across reboots:
+### Install iptables-persistent:
+ ```bash
+ sudo apt install iptables-persistent -y
+ ```
+### Save the rules:
+ ```bash
+ sudo iptables-save > /etc/iptables/rules.v4
+ ```
+  Result: The rules will be re-applied automatically on reboot.
