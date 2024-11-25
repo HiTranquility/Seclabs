@@ -62,11 +62,18 @@ tar -cvf file_bundle.tar file.txt file.sig
 ---
 
 ### **Step 1.4: Transfer the File**
+First, you might need to fire up another Virtual Machine and find its IP address through terminal by using this command: 
+```bash
+ip addr show
+```
+![image](https://github.com/user-attachments/assets/ce9460ec-8a34-49b3-9c51-a0f1e037c183)
+
 Send the tarball to the receiving computer using a secure method like SCP:
 
 ```bash
 scp file_bundle.tar user@receiver_ip:/destination_path
 ```
+![image](https://github.com/user-attachments/assets/7b1535eb-ce24-4fd4-83b7-b76618a5841d)
 
 Replace `user` and `receiver_ip` with the appropriate username and IP address of the receiving computer.
 
