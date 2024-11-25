@@ -80,7 +80,7 @@ scp file_bundle.tar HiTranquility@10.0.2.15:/home/HiTranquility/Desktop/Seclabs
 ```
 Some issues that you need to solve! If you see this message below: 
 ![image](https://github.com/user-attachments/assets/36fd6c31-23a9-453f-b34d-09c708e77f50)  
-This happens because your Virtual Machine doesn't have SSH downloaded yet!, so we will resolve this by download this back, please follow this picture for more:
+This happens because your Virtual Machine doesn't have SSH downloaded yet!, so we will resolve this by download this back, please follow these followung steps for more:
 ### **1. Verify SSH Server is Installed on the Receiving VM**
 - On the receiving VM, check if the SSH server is installed:
   ```bash
@@ -111,6 +111,7 @@ This happens because your Virtual Machine doesn't have SSH downloaded yet!, so w
   sudo ufw allow ssh
   ```
   ![image](https://github.com/user-attachments/assets/982d9770-68f8-49c1-aef1-960d452c7496)
+**Remember to do the same for both Virtual Machines!**
 ---
 ## **2. Receiving Side**
 
