@@ -56,7 +56,7 @@ tar -cvf file_bundle.tar file.txt file.sig
 ```
 ![image](https://github.com/user-attachments/assets/6249c7fa-4ad6-4bdf-9a60-74fb4e83e34c)
 
-- `file_bundle.tar`: A compressed archive of the file and its signature.
+- `file_bundle.tar`: A compressed archive of the file and its signature.  
 ![image](https://github.com/user-attachments/assets/c0bc8d53-7475-4ca1-b77c-8d591a8f4839)
 
 ---
