@@ -185,20 +185,22 @@ Each machine (sender and receiver) needs to generate a public and private RSA ke
    ```bash
    openssl genpkey -algorithm RSA -out private_sender.key -aes256
    ```
-   ![image](https://github.com/user-attachments/assets/eb330fb3-0d99-4825-94ff-c2f0c8cc7cd3)  
+   ![image](https://github.com/user-attachments/assets/9b7e3d73-ae32-4ad1-a7e8-fd048b3273e1)
+
    Here I choose `236890` for later checking!
    
    ```bash
    openssl rsa -pubout -in private_sender.key -out public_sender.key
    ```
-   ![image](https://github.com/user-attachments/assets/448357be-33c6-4da9-8351-9e3a59d6d3a6)  
+   ![image](https://github.com/user-attachments/assets/b96092aa-a2fa-4594-ac82-18aab3ec55f7)
+ 
    I use `236890` from the previous!
 
 3. **On Receiver's Computer (Computer 2):**
    ```bash
    openssl genpkey -algorithm RSA -out private_receiver.key -aes256
-   ![image](https://github.com/user-attachments/assets/b635180b-89dd-44e2-a406-fcae416d326d)
    ```
+   ![image](https://github.com/user-attachments/assets/b635180b-89dd-44e2-a406-fcae416d326d)
    I choose PEM password is: `123456` also for later checking. Note that PEM doesn't affect the whole process so you can freely choose what numbers you want.
    ```bash
    openssl rsa -pubout -in private_receiver.key -out public_receiver.key
@@ -212,7 +214,8 @@ The file you want to transfer will be encrypted using AES encryption, and the AE
 
 1. **Choose the file to encrypt** (e.g., `file_to_transfer.txt`).
    ![image](https://github.com/user-attachments/assets/f1716f0b-a68d-4919-a678-889d4d08530d)
-   
+   ![image](https://github.com/user-attachments/assets/40b2f91a-0b70-4bf3-b4e3-ea2977f21515)
+
 3. **On Sender's Computer (Computer 1):**
 
    - Generate a random AES key (128-bit):
@@ -232,13 +235,15 @@ The file you want to transfer will be encrypted using AES encryption, and the AE
      This will create the encrypted file `file_to_transfer.enc`.
      So now, we will give the sende the `public_receiver.key` by doing the same task from the previous Task1, for example:
      ```bash
-     scp public_receiver.key HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
+     scp public_receiver.key TranquilSilence@172.16.31.77:/home/TranquilSilence/MyUbuntu/Task2
      ```
+     ![image](https://github.com/user-attachments/assets/89cc8014-d0a7-4270-b697-9a0a4fbf0e23)
+
    - Encrypt the AES key using the receiver’s public RSA key:
      ```bash
-     openssl rsautl -encrypt -inkey public_receiver.key -pubin -in aes.key -out aes.key.enc
+     openssl pkeyutl -encrypt -inkey public_receiver.key -pubin -in aes.key -out aes.key.enc
      ```
-
+     ![image](https://github.com/user-attachments/assets/800844a6-4af5-4d71-b557-8c0765e95596)
      This will encrypt the AES key with the receiver’s public RSA key, creating `aes.key.enc`.
 
 ## Step 3: Transfer Encrypted Files
@@ -248,7 +253,7 @@ After encryption, transfer the following files to the receiver:
 
 You can use `scp` or any other secure file transfer method:
 ```bash
-scp file_to_transfer.enc aes.key.enc receiver@10.0.2.15:/path/to/destination/
+scp file_to_transfer.enc aes.key.enc HiTranquility@172.16.31.78:/home/HiTranquility/MyUbuntu/Task2
 ```
 
 ## Step 4: Decrypt the File on the Receiver's Side
