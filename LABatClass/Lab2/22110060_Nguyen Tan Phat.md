@@ -76,8 +76,12 @@ scp file_bundle.tar user@receiver_ip:/destination_path
 Replace `user` and `receiver_ip` with the appropriate username and IP address of the receiving computer.  
 For example, mine will be: 
 ```bash
-scp file_bundle.tar HiTranquility@10.111.5.199:/home/HiTranquility/Desktop/Seclabs
+scp file_bundle.tar HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
 ```
+![image](https://github.com/user-attachments/assets/4b960f77-daec-45be-a6a1-92a8b19b4f9e)
+
+![image](https://github.com/user-attachments/assets/678cbb32-0529-4b00-8129-793645aa3251)
+
 ![image](https://github.com/user-attachments/assets/33a773c1-3d41-4873-85a0-7ec7d2ca41cc)
 
 Some issues that you need to solve! If you see this message below: 
@@ -116,7 +120,7 @@ This happens because your Virtual Machine doesn't have SSH downloaded yet!, so w
 ### **5. Test SSH Connection**
 - Before using `scp`, test if you can connect to the receiving VM using `ssh`:
   ```bash
-  ssh HiTranquility@10.0.2.15
+  ssh HiTranquility@10.111.5.199
   ```
 - If this works, `scp` should also work. If not, recheck the SSH server, IP, or firewall settings.
   
