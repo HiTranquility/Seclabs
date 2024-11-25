@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/8cc85508-bf0d-4790-b798-3dd163e83025)# 22110060 Nguyen Tan Phat
+# 22110060 Nguyen Tan Phat
 
 # Task 1: Transfer Files Between Computers
 
