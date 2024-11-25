@@ -26,7 +26,6 @@ openssl rsa -in private.key -pubout -out public.key
 
 - `private.key`: Used for signing the file.
 - `public.key`: Shared with the receiver for verification.
-
 ![image](https://github.com/user-attachments/assets/506ef7d6-a125-45f9-b214-2582e0fe5596)
 ![image](https://github.com/user-attachments/assets/ce742ecc-a2aa-4371-bc27-62a6b68f131f)
 
@@ -35,7 +34,6 @@ openssl rsa -in private.key -pubout -out public.key
 ### **Step 1.2: Sign the File**
 
 Create file `file.txt` with text: "Hello there! This is HiTranquility!"  
-
 ![image](https://github.com/user-attachments/assets/36e09d9a-eb4f-4f86-b135-d244976d681d)
 
 Sign the plaintext file (e.g., `file.txt`) to generate a signature:
@@ -43,8 +41,10 @@ Sign the plaintext file (e.g., `file.txt`) to generate a signature:
 ```bash
 openssl dgst -sha256 -sign private.key -out file.sig file.txt
 ```
+![image](https://github.com/user-attachments/assets/f6ac6ab3-be74-480f-8a2f-9580afbf69e1)  
 
 - `file.sig`: Contains the cryptographic signature of `file.txt`.
+![image](https://github.com/user-attachments/assets/9851e3a0-64b5-4dca-bc60-bd5d3ce5e8ac)
 
 ---
 
@@ -54,8 +54,10 @@ Combine the plaintext file and its signature into a single tarball for transfer:
 ```bash
 tar -cvf file_bundle.tar file.txt file.sig
 ```
+![image](https://github.com/user-attachments/assets/6249c7fa-4ad6-4bdf-9a60-74fb4e83e34c)
 
 - `file_bundle.tar`: A compressed archive of the file and its signature.
+![image](https://github.com/user-attachments/assets/c0bc8d53-7475-4ca1-b77c-8d591a8f4839)
 
 ---
 
