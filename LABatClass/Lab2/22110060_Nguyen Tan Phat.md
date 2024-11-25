@@ -43,7 +43,7 @@ openssl dgst -sha256 -sign private.key -out file.sig file.txt
 ```
 ![image](https://github.com/user-attachments/assets/f6ac6ab3-be74-480f-8a2f-9580afbf69e1)  
 
-- `file.sig`: Contains the cryptographic signature of `file.txt`.
+- `file.sig`: Contains the cryptographic signature of `file.txt`.  
 ![image](https://github.com/user-attachments/assets/9851e3a0-64b5-4dca-bc60-bd5d3ce5e8ac)
 
 ---
