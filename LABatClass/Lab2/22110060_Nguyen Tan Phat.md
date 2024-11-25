@@ -267,21 +267,108 @@ Once the files are transferred, the receiver can decrypt both the AES key and th
      ```bash
      openssl rsautl -decrypt -inkey private_receiver.key -in aes.key.enc -out aes.key
      ```
-     
-    ![image](https://github.com/user-attachments/assets/9dac7c32-b98e-4792-9491-3264ffa55a50)
-    ![image](https://github.com/user-attachments/assets/675c97b6-fb43-4d6b-85d4-39a08e9b3f09)
+  ![image](https://github.com/user-attachments/assets/9dac7c32-b98e-4792-9491-3264ffa55a50)
+    
+  ![image](https://github.com/user-attachments/assets/675c97b6-fb43-4d6b-85d4-39a08e9b3f09)
 
    - **Decrypt the file using the decrypted AES key:**
      ```bash
      openssl enc -d -aes-128-cbc -in file_to_transfer.enc -out file_to_transfer_decrypted.txt -pass file:./aes.key
      ```
-
-   - **Verify the decrypted file:**
-     ```bash
-     diff file_to_transfer_decrypted.txt file_to_transfer.txt
-     ```
-     If there is no output, the decryption is successful.
----
+  ![image](https://github.com/user-attachments/assets/22a6e1d1-cc0a-48ba-badc-0b27e31ffd55)
+  ![image](https://github.com/user-attachments/assets/b2d4370b-d0c4-4d6c-b5c5-168c56736459)
 
 ## Conclusion:
 This process demonstrates the use of hybrid encryption combining RSA (asymmetric encryption) for secure key exchange and AES (symmetric encryption) for file encryption. It provides both security and efficiency for transferring files between two computers.
+
+# Task 3: Firewall Configuration Guide
+
+## Step 1: Install Required Packages
+
+### On VM1 (Server):
+1. Update the system and install `iptables`, `apache2`, and `openssh-server`:
+    ```bash
+    sudo apt update
+    sudo apt install iptables apache2 openssh-server -y
+    ```
+
+2. Start and enable Apache and SSH services:
+    ```bash
+    sudo systemctl start apache2
+    sudo systemctl enable apache2
+    sudo systemctl start ssh
+    sudo systemctl enable ssh
+    ```
+
+---
+
+## Step 2: Verify Basic Connectivity
+
+### On VM2 (Client):
+1. Test connectivity to VM1's web and SSH services:
+
+    - **Ping VM1:**
+      ```bash
+      ping <VM1_IP>
+      ```
+
+    - **Test HTTP access using curl:**
+      ```bash
+      curl http://<VM1_IP>
+      ```
+
+    - **Test SSH access:**
+      ```bash
+      ssh <username>@<VM1_IP>
+      ```
+
+2. Ensure all services are accessible before applying firewall rules.
+
+---
+
+## Step 3: Configure `iptables` Rules on VM1
+
+### On VM1 (Server):
+1. Clear existing iptables rules to start fresh:
+    ```bash
+    sudo iptables -F
+    sudo iptables -X
+    ```
+
+2. Add the following rules:
+
+    - **Rule 1: Block HTTP (port 80) traffic**
+      To block HTTP requests from VM2:
+      ```bash
+      sudo iptables -A INPUT -p tcp --dport 80 -s <VM2_IP> -j DROP
+      ```
+
+    - **Rule 2: Block ICMP (ping) traffic**
+      To block ping requests (ICMP echo):
+      ```bash
+      sudo iptables -A INPUT -p icmp -s <VM2_IP> -j DROP
+      ```
+
+    - **Rule 3: Block SSH (port 22) traffic**
+      To block SSH access from VM2:
+      ```bash
+      sudo iptables -A INPUT -p tcp --dport 22 -s <VM2_IP> -j DROP
+      ```
+
+    - **Rule 4: Allow All Other Traffic**
+      Add a rule to allow all other incoming traffic (optional for testing):
+      ```bash
+      sudo iptables -A INPUT -j ACCEPT
+      ```
+
+---
+
+## Step 4: Demonstrate Blocking/Unblocking
+
+### Blocking
+After applying the rules, test from VM2:
+
+- **HTTP (port 80):**
+  Try accessing the web server:
+  ```bash
+  curl http://<VM1_IP>
