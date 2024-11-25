@@ -33,6 +33,11 @@ openssl rsa -in private.key -pubout -out public.key
 ---
 
 ### **Step 1.2: Sign the File**
+
+Create file `file.txt` with text: "Hello there! This is HiTranquility!"  
+
+![image](https://github.com/user-attachments/assets/36e09d9a-eb4f-4f86-b135-d244976d681d)
+
 Sign the plaintext file (e.g., `file.txt`) to generate a signature:
 
 ```bash
