@@ -1,4 +1,4 @@
-# 22110060 Nguyen Tan Phat
+![image](https://github.com/user-attachments/assets/8cc85508-bf0d-4790-b798-3dd163e83025)# 22110060 Nguyen Tan Phat
 
 # Task 1: Transfer Files Between Computers
 
@@ -311,16 +311,19 @@ This process demonstrates the use of hybrid encryption combining RSA (asymmetric
       ```bash
       ping <VM1_IP>
       ```
+      ![image](https://github.com/user-attachments/assets/3835f107-89a4-4cfd-a878-9625e2b56b98)
 
     - **Test HTTP access using curl:**
       ```bash
       curl http://<VM1_IP>
       ```
+      ![image](https://github.com/user-attachments/assets/dcfbb3e9-1e3e-480a-aade-86149ca58eed)
 
     - **Test SSH access:**
       ```bash
       ssh <username>@<VM1_IP>
       ```
+      ![image](https://github.com/user-attachments/assets/1f3eef6e-37ee-4f8a-8c8a-8de35b0dbb50)
 
 2. Ensure all services are accessible before applying firewall rules.
 
@@ -342,7 +345,7 @@ This process demonstrates the use of hybrid encryption combining RSA (asymmetric
       ```bash
       sudo iptables -A INPUT -p tcp --dport 80 -s <VM2_IP> -j DROP
       ```
-
+      
     - **Rule 2: Block ICMP (ping) traffic**
       To block ping requests (ICMP echo):
       ```bash
@@ -354,13 +357,8 @@ This process demonstrates the use of hybrid encryption combining RSA (asymmetric
       ```bash
       sudo iptables -A INPUT -p tcp --dport 22 -s <VM2_IP> -j DROP
       ```
-
-    - **Rule 4: Allow All Other Traffic**
-      Add a rule to allow all other incoming traffic (optional for testing):
-      ```bash
-      sudo iptables -A INPUT -j ACCEPT
-      ```
-
+   ![image](https://github.com/user-attachments/assets/282f6794-effc-4930-917a-2832d91e684f)
+   
 ---
 
 ## Step 4: Demonstrate Blocking/Unblocking
@@ -373,11 +371,14 @@ After applying the rules, test from VM2:
   ```bash
   curl http://<VM1_IP>
   ```
+  ![image](https://github.com/user-attachments/assets/1e8bace9-a438-42ec-b9eb-838092424147)
+
 - SSH (port 22):
   Try connecting to SSH:
   ```bash
   ssh <username>@<VM1_IP>
   ```
+  ![image](https://github.com/user-attachments/assets/b0f832fb-141b-42fd-9b49-faae6de54d68)
   Expected Result: The connection should fail.
 
 ### Unblocking
@@ -395,9 +396,10 @@ To unblock traffic, remove the specific rule using iptables:
   ```bash
   sudo iptables -D INPUT -p tcp --dport 22 -s <VM2_IP> -j DROP
   ```
+![image](https://github.com/user-attachments/assets/26496acf-1e5a-4702-b2e2-123b86e5b67a)
+
 ### Testing:
 Test the services again from VM2 to ensure connectivity is restored.
-
 ---
 
 ## Step 5: Save and Persist Firewall Rules
