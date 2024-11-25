@@ -139,7 +139,7 @@ tar -xvf file_bundle.tar
 
 This will produce:
 - `file.txt`: The plaintext file.
-- `file.sig`: The file's signature.
+- `file.sig`: The file's signature.  
 ![image](https://github.com/user-attachments/assets/5c46dd36-3fc2-4a58-9520-0cfde7189189)
 
 ---
@@ -230,7 +230,7 @@ The file you want to transfer will be encrypted using AES encryption, and the AE
      ![image](https://github.com/user-attachments/assets/cf104551-73e2-4c02-8082-135d71905853)  
 
      This will create the encrypted file `file_to_transfer.enc`.
-     So now, we will give the sende the `public_receiver.key` by doing the same task from the previous  Task1, for example:
+     So now, we will give the sende the `public_receiver.key` by doing the same task from the previous Task1, for example:
      ```bash
      scp public_receiver.key HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
      ```
