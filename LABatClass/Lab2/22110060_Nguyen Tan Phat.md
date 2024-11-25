@@ -76,7 +76,7 @@ scp file_bundle.tar user@receiver_ip:/destination_path
 Replace `user` and `receiver_ip` with the appropriate username and IP address of the receiving computer.  
 For example, mine will be: 
 ```bash
-scp file_bundle.tar HiTranquility@10.0.2.15:/home/HiTranquility/Desktop
+scp file_bundle.tar HiTranquility@10.0.2.15:/home/HiTranquility/Desktop/Seclabs
 ```
 Some issues that you need to solve! If you see this message below: 
 ![image](https://github.com/user-attachments/assets/36fd6c31-23a9-453f-b34d-09c708e77f50)  
