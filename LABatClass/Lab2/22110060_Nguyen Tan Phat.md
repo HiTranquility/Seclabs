@@ -255,16 +255,21 @@ You can use `scp` or any other secure file transfer method:
 ```bash
 scp file_to_transfer.enc aes.key.enc HiTranquility@172.16.31.78:/home/HiTranquility/MyUbuntu/Task2
 ```
+![image](https://github.com/user-attachments/assets/17ab0935-e6eb-41a3-a67f-cca5eb359fb3)
+![image](https://github.com/user-attachments/assets/98cdce03-7936-4aa9-880e-4a143de2f791)
 
 ## Step 4: Decrypt the File on the Receiver's Side
 Once the files are transferred, the receiver can decrypt both the AES key and the encrypted file.
 
-1. **On Receiver's Computer (Computer 2):**
+**On Receiver's Computer (Computer 2):**
 
    - **Decrypt the AES key using the receiver's private RSA key:**
      ```bash
      openssl rsautl -decrypt -inkey private_receiver.key -in aes.key.enc -out aes.key
      ```
+     
+    ![image](https://github.com/user-attachments/assets/9dac7c32-b98e-4792-9491-3264ffa55a50)
+    ![image](https://github.com/user-attachments/assets/675c97b6-fb43-4d6b-85d4-39a08e9b3f09)
 
    - **Decrypt the file using the decrypted AES key:**
      ```bash
@@ -276,42 +281,7 @@ Once the files are transferred, the receiver can decrypt both the AES key and th
      diff file_to_transfer_decrypted.txt file_to_transfer.txt
      ```
      If there is no output, the decryption is successful.
-
-## Summary of Commands
-
-### On Sender's Computer (Computer 1):
-1. Generate RSA keys:
-   ```bash
-   openssl genpkey -algorithm RSA -out private_sender.key -aes256
-   openssl rsa -pubout -in private_sender.key -out public_sender.key
-   ```
-2. Generate AES key:
-   ```bash
-   openssl rand -out aes.key 16
-   ```
-3. Encrypt the file using AES:
-   ```bash
-   openssl enc -aes-128-cbc -salt -in file_to_transfer.txt -out file_to_transfer.enc -pass file:./aes.key
-   ```
-4. Encrypt the AES key using RSA:
-   ```bash
-   openssl rsautl -encrypt -inkey public_receiver.key -pubin -in aes.key -out aes.key.enc
-   ```
-5. Transfer `file_to_transfer.enc` and `aes.key.enc` to the receiver.
-
-### On Receiver's Computer (Computer 2):
-1. Decrypt the AES key using RSA:
-   ```bash
-   openssl rsautl -decrypt -inkey private_receiver.key -in aes.key.enc -out aes.key
-   ```
-2. Decrypt the file using AES:
-   ```bash
-   openssl enc -d -aes-128-cbc -in file_to_transfer.enc -out file_to_transfer_decrypted.txt -pass file:./aes.key
-   ```
-3. Verify the decrypted file:
-   ```bash
-   diff file_to_transfer_decrypted.txt file_to_transfer.txt
-   ```
+---
 
 ## Conclusion:
 This process demonstrates the use of hybrid encryption combining RSA (asymmetric encryption) for secure key exchange and AES (symmetric encryption) for file encryption. It provides both security and efficiency for transferring files between two computers.
