@@ -66,19 +66,52 @@ First, you might need to fire up another Virtual Machine and find its IP address
 ```bash
 ip addr show
 ```
-![image](https://github.com/user-attachments/assets/ce9460ec-8a34-49b3-9c51-a0f1e037c183)
-
+![image](https://github.com/user-attachments/assets/ebfd19d5-0cf1-4b4e-a07e-7f860d4df4e9)
+Afterwards, try to ping each side by using `ping <ipaddress>` to confirm!
 Send the tarball to the receiving computer using a secure method like SCP:
 
 ```bash
 scp file_bundle.tar user@receiver_ip:/destination_path
 ```
-![image](https://github.com/user-attachments/assets/7b1535eb-ce24-4fd4-83b7-b76618a5841d)
-
-Replace `user` and `receiver_ip` with the appropriate username and IP address of the receiving computer.
-
+Replace `user` and `receiver_ip` with the appropriate username and IP address of the receiving computer.  
+For example, mine will be: 
+```bash
+scp file_bundle.tar HiTranquility@10.0.2.15:/home/HiTranquility/Desktop
+```
+Some issues that you need to solve! If you see this message below: 
+![image](https://github.com/user-attachments/assets/36fd6c31-23a9-453f-b34d-09c708e77f50)  
+This happens because your Virtual Machine doesn't have SSH downloaded yet!, so we will resolve this by download this back, please follow this picture for more:
+### **1. Verify SSH Server is Installed on the Receiving VM**
+- On the receiving VM, check if the SSH server is installed:
+  ```bash
+  sudo systemctl status ssh
+  ```
+- If it’s not installed, install it using:
+  ```bash
+  sudo apt update && sudo apt install openssh-server
+  ```
+![image](https://github.com/user-attachments/assets/cd8d4b1d-01a0-4d5b-8f10-8f88bbe34040)
+### **2. Start the SSH Service**
+- Ensure the SSH server is running:
+  ```bash
+  sudo systemctl start ssh
+  ```
+- To enable it at boot:
+  ```bash
+  sudo systemctl enable ssh
+  ```
+  ![image](https://github.com/user-attachments/assets/3a0bf898-b6b4-4f35-aa42-a8d44edb7260)
+### **3. Allow SSH Through Firewall (If Active)**
+- Check if a firewall (e.g., UFW) is running on the receiving VM:
+  ```bash
+  sudo ufw status
+  ```
+- If active, allow SSH connections:
+  ```bash
+  sudo ufw allow ssh
+  ```
+  ![image](https://github.com/user-attachments/assets/982d9770-68f8-49c1-aef1-960d452c7496)
 ---
-
 ## **2. Receiving Side**
 
 ### **Step 2.1: Unpack the File Bundle**
