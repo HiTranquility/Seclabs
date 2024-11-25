@@ -1,4 +1,4 @@
-# 22110060 Nguyen Tan Phat
+![image](https://github.com/user-attachments/assets/0b3cd08c-4973-4720-86b9-a81293a69ff6)# 22110060 Nguyen Tan Phat
 
 # Task 1: Transfer Files Between Computers
 
@@ -168,19 +168,145 @@ openssl dgst -sha256 -verify public.key -signature file.sig file.txt
 
 ---
 
-## **Summary**
+# Task 2: Transferring Encrypted File and Decrypting with Hybrid Encryption
 
-| **Step**         | **Action**                          | **File(s) Created**                | **Purpose**                              |
-|-------------------|-------------------------------------|-------------------------------------|------------------------------------------|
-| **Sending Side**  | Generate Key Pair                  | `private.key`, `public.key`         | Keys for signing and verification.       |
-|                   | Sign File                          | `file.sig`                         | Signature to ensure integrity/authenticity. |
-|                   | Bundle Files                       | `file_bundle.tar`                  | Archive for easy transfer.               |
-|                   | Transfer Files                     | -                                  | Move the tarball to the receiver.        |
-| **Receiving Side**| Unpack Tarball                     | `file.txt`, `file.sig`             | Extract files for verification.          |
-|                   | Verify File                        | Validation Output (OK or Failed)   | Check file integrity and authenticity.   |
+## Objective:
+This task involves transferring a file securely between two computers using hybrid encryption. The file will be symmetrically encrypted using AES, and the AES key will be encrypted with RSA for secure key exchange. All operations are done manually using OpenSSL commands in the terminal.
 
----
+### Prerequisites:
+- OpenSSL installed on both sender and receiver machines.
+- Two computers: one for the sender and one for the receiver.
+- RSA private and public key pairs for both sender and receiver.
 
-## **Key Notes**
-- Ensure the sender’s `public.key` is securely transferred to the receiver beforehand or separately.
-- Use SCP, SFTP, or another secure method to transfer the tarball.
+## Step 1: Generate RSA Key Pair
+Each machine (sender and receiver) needs to generate a public and private RSA key pair.
+
+1. **On Sender's Computer (Computer 1):**
+   ```bash
+   openssl genpkey -algorithm RSA -out private_sender.key -aes256
+   ```
+   ![image](https://github.com/user-attachments/assets/eb330fb3-0d99-4825-94ff-c2f0c8cc7cd3)  
+   Here I choose `236890` for later checking!
+   
+   ```bash
+   openssl rsa -pubout -in private_sender.key -out public_sender.key
+   ```
+   ![image](https://github.com/user-attachments/assets/448357be-33c6-4da9-8351-9e3a59d6d3a6)  
+   I use `236890` from the previous!
+
+3. **On Receiver's Computer (Computer 2):**
+   ```bash
+   openssl genpkey -algorithm RSA -out private_receiver.key -aes256
+   ![image](https://github.com/user-attachments/assets/b635180b-89dd-44e2-a406-fcae416d326d)
+   ```
+   I choose PEM password is: `123456` also for later checking. Note that PEM doesn't affect the whole process so you can freely choose what numbers you want.
+   ```bash
+   openssl rsa -pubout -in private_receiver.key -out public_receiver.key
+   ```
+    ![image](https://github.com/user-attachments/assets/c1055200-37ba-4d27-86fd-5c4bffcaf2f1)
+
+This will generate RSA key pairs (private and public) on both sender and receiver sides.
+
+## Step 2: Symmetrically Encrypt the File (AES Encryption)
+The file you want to transfer will be encrypted using AES encryption, and the AES key will be encrypted using RSA.
+
+1. **Choose the file to encrypt** (e.g., `file_to_transfer.txt`).
+   ![image](https://github.com/user-attachments/assets/f1716f0b-a68d-4919-a678-889d4d08530d)
+   
+3. **On Sender's Computer (Computer 1):**
+
+   - Generate a random AES key (128-bit):
+     ```bash
+     openssl rand -out aes.key 16
+     ```
+     ![image](https://github.com/user-attachments/assets/9e358178-52a6-4446-9917-7e44b57c65a6)
+     ![image](https://github.com/user-attachments/assets/26f74b79-a7ae-4514-b2d1-60a02aac934f)  
+
+   - Encrypt the file using the AES key:
+     ```bash
+     openssl enc -aes-128-cbc -salt -in file_to_transfer.txt -out file_to_transfer.enc -pass file:./aes.key
+     ```
+     ![image](https://github.com/user-attachments/assets/4e715afc-ddad-44b0-9826-1dfbbe64e567)
+     ![image](https://github.com/user-attachments/assets/cf104551-73e2-4c02-8082-135d71905853)  
+
+     This will create the encrypted file `file_to_transfer.enc`.
+     So now, we will give the sende the `public_receiver.key` by doing the same task from the previous  Task1, for example:
+     ```bash
+     scp public_receiver.key HiTranquility@10.111.5.199:/home/HiTranquility/MyUbuntu
+     ```
+   - Encrypt the AES key using the receiver’s public RSA key:
+     ```bash
+     openssl rsautl -encrypt -inkey public_receiver.key -pubin -in aes.key -out aes.key.enc
+     ```
+
+     This will encrypt the AES key with the receiver’s public RSA key, creating `aes.key.enc`.
+
+## Step 3: Transfer Encrypted Files
+After encryption, transfer the following files to the receiver:
+- `file_to_transfer.enc` (encrypted file)
+- `aes.key.enc` (encrypted AES key)
+
+You can use `scp` or any other secure file transfer method:
+```bash
+scp file_to_transfer.enc aes.key.enc receiver@10.0.2.15:/path/to/destination/
+```
+
+## Step 4: Decrypt the File on the Receiver's Side
+Once the files are transferred, the receiver can decrypt both the AES key and the encrypted file.
+
+1. **On Receiver's Computer (Computer 2):**
+
+   - **Decrypt the AES key using the receiver's private RSA key:**
+     ```bash
+     openssl rsautl -decrypt -inkey private_receiver.key -in aes.key.enc -out aes.key
+     ```
+
+   - **Decrypt the file using the decrypted AES key:**
+     ```bash
+     openssl enc -d -aes-128-cbc -in file_to_transfer.enc -out file_to_transfer_decrypted.txt -pass file:./aes.key
+     ```
+
+   - **Verify the decrypted file:**
+     ```bash
+     diff file_to_transfer_decrypted.txt file_to_transfer.txt
+     ```
+     If there is no output, the decryption is successful.
+
+## Summary of Commands
+
+### On Sender's Computer (Computer 1):
+1. Generate RSA keys:
+   ```bash
+   openssl genpkey -algorithm RSA -out private_sender.key -aes256
+   openssl rsa -pubout -in private_sender.key -out public_sender.key
+   ```
+2. Generate AES key:
+   ```bash
+   openssl rand -out aes.key 16
+   ```
+3. Encrypt the file using AES:
+   ```bash
+   openssl enc -aes-128-cbc -salt -in file_to_transfer.txt -out file_to_transfer.enc -pass file:./aes.key
+   ```
+4. Encrypt the AES key using RSA:
+   ```bash
+   openssl rsautl -encrypt -inkey public_receiver.key -pubin -in aes.key -out aes.key.enc
+   ```
+5. Transfer `file_to_transfer.enc` and `aes.key.enc` to the receiver.
+
+### On Receiver's Computer (Computer 2):
+1. Decrypt the AES key using RSA:
+   ```bash
+   openssl rsautl -decrypt -inkey private_receiver.key -in aes.key.enc -out aes.key
+   ```
+2. Decrypt the file using AES:
+   ```bash
+   openssl enc -d -aes-128-cbc -in file_to_transfer.enc -out file_to_transfer_decrypted.txt -pass file:./aes.key
+   ```
+3. Verify the decrypted file:
+   ```bash
+   diff file_to_transfer_decrypted.txt file_to_transfer.txt
+   ```
+
+## Conclusion:
+This process demonstrates the use of hybrid encryption combining RSA (asymmetric encryption) for secure key exchange and AES (symmetric encryption) for file encryption. It provides both security and efficiency for transferring files between two computers.
